@@ -15,56 +15,56 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Prints a particular instance of simplemod
+ * Prints a particular instance of pdfcertificate
  *
- * @package    mod_simplemod
- * @copyright  2019 Richard Jones richardnz@outlook.com
+ * @package    mod_pdfcertificate
+ * @copyright  2022 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_simplemod
- * @see https://github.com/justinhunt/moodle-mod_simplemod */
+ * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
+ * @see https://github.com/justinhunt/moodle-mod_pdfcertificate */
 
-use mod_simplemod\output\view;
+use mod_pdfcertificate\output\view;
 require_once('../../config.php');
 
 // We need the course module id (id) or
-// the simplemod instance id (n).
+// the pdfcertificate instance id (n).
 $id = optional_param('id', 0, PARAM_INT);
 $n  = optional_param('n', 0, PARAM_INT);
 
 if ($id) {
-    $cm = get_coursemodule_from_id('simplemod', $id, 0, false,
+    $cm = get_coursemodule_from_id('pdfcertificate', $id, 0, false,
             MUST_EXIST);
     $course = $DB->get_record('course',
             array('id' => $cm->course), '*', MUST_EXIST);
-    $simplemod = $DB->get_record('simplemod',
+    $pdfcertificate = $DB->get_record('pdfcertificate',
             array('id' => $cm->instance), '*', MUST_EXIST);
 } else if ($n) {
-    $simplemod = $DB->get_record('simplemod', array('id' => $n), '*',
+    $pdfcertificate = $DB->get_record('pdfcertificate', array('id' => $n), '*',
             MUST_EXIST);
     $course = $DB->get_record('course',
-            array('id' => $simplemod->course), '*', MUST_EXIST);
-    $cm = get_coursemodule_from_instance('simplemod', $simplemod->id,
+            array('id' => $pdfcertificate->course), '*', MUST_EXIST);
+    $cm = get_coursemodule_from_instance('pdfcertificate', $pdfcertificate->id,
             $course->id, false, MUST_EXIST);
 }
 
 // Print the page header.
-$PAGE->set_url('/mod/simplemod/view.php', array('id' => $cm->id));
+$PAGE->set_url('/mod/pdfcertificate/view.php', array('id' => $cm->id));
 
 require_login($course, true, $cm);
 
 // Set the page information.
-$PAGE->set_title(format_string($simplemod->name));
+$PAGE->set_title(format_string($pdfcertificate->name));
 $PAGE->set_heading(format_string($course->fullname));
 
 // Check for intro page content.
-if (!$simplemod->intro) {
-    $simplemod->intro = '';
+if (!$pdfcertificate->intro) {
+    $pdfcertificate->intro = '';
 }
 // Start output to browser.
 echo $OUTPUT->header();
 
 // Call classes/output/view and view.mustache to create output.
-echo $OUTPUT->render(new view($simplemod, $cm->id));
+echo $OUTPUT->render(new view($pdfcertificate, $cm->id));
 
 // End output to browser.
 echo $OUTPUT->footer();

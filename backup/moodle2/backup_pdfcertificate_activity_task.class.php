@@ -15,29 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_simplemod_activity_task class
+ * Defines backup_pdfcertificate_activity_task class
  *
- * @package   mod_simplemod
+ * @package   mod_pdfcertificate
  * @category  backup
- * @copyright 2019 Richard Jones richardnz@outlook.com
+ * @copyright 2022 Richard Jones richardnz@outlook.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_simplemod
- * @see https://github.com/justinhunt/moodle-mod_simplemod */
+ * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
+ * @see https://github.com/justinhunt/moodle-mod_pdfcertificate */
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot . '/mod/simplemod/backup/moodle2/backup_simplemod_stepslib.php');
-require_once($CFG->dirroot . '/mod/simplemod/backup/moodle2/backup_simplemod_settingslib.php');
+require_once($CFG->dirroot . '/mod/pdfcertificate/backup/moodle2/backup_pdfcertificate_stepslib.php');
+require_once($CFG->dirroot . '/mod/pdfcertificate/backup/moodle2/backup_pdfcertificate_settingslib.php');
 /**
- * Provides the steps to perform one complete backup of the simplemod instance
+ * Provides the steps to perform one complete backup of the pdfcertificate instance
  *
- * @package   mod_simplemod
+ * @package   mod_pdfcertificate
  * @category  backup
- * @copyright 2019 Richard Jones richardnz@outlook.com
+ * @copyright 2022 Richard Jones richardnz@outlook.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_simplemod
- * @see https://github.com/justinhunt/moodle-mod_simplemod */
-class backup_simplemod_activity_task extends backup_activity_task {
+ * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
+ * @see https://github.com/justinhunt/moodle-mod_pdfcertificate */
+class backup_pdfcertificate_activity_task extends backup_activity_task {
 
     /**
      * No specific settings for this activity
@@ -46,10 +46,10 @@ class backup_simplemod_activity_task extends backup_activity_task {
     }
 
     /**
-     * Defines a backup step to store the instance data in the simplemod.xml file
+     * Defines a backup step to store the instance data in the pdfcertificate.xml file
      */
     protected function define_my_steps() {
-        $this->add_step(new backup_simplemod_activity_structure_step('simplemod_structure', 'simplemod.xml'));
+        $this->add_step(new backup_pdfcertificate_activity_structure_step('pdfcertificate_structure', 'pdfcertificate.xml'));
     }
 
     /**
@@ -63,13 +63,13 @@ class backup_simplemod_activity_task extends backup_activity_task {
 
         $base = preg_quote($CFG->wwwroot, '/');
 
-        // Link to the list of simplemods.
-        $search = '/('.$base.'\/mod\/simplemod\/index.php\?id\=)([0-9]+)/';
-        $content = preg_replace($search, '$@SIMPLEMODINDEX*$2@$', $content);
+        // Link to the list of pdfcertificates.
+        $search = '/('.$base.'\/mod\/pdfcertificate\/index.php\?id\=)([0-9]+)/';
+        $content = preg_replace($search, '$@pdfcertificateINDEX*$2@$', $content);
 
-        // Link to simplemod view by moduleid.
-        $search = '/('.$base.'\/mod\/simplemod\/view.php\?id\=)([0-9]+)/';
-        $content = preg_replace($search, '$@SIMPLEMODVIEWBYID*$2@$', $content);
+        // Link to pdfcertificate view by moduleid.
+        $search = '/('.$base.'\/mod\/pdfcertificate\/view.php\?id\=)([0-9]+)/';
+        $content = preg_replace($search, '$@pdfcertificateVIEWBYID*$2@$', $content);
 
         return $content;
     }

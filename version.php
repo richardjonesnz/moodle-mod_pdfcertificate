@@ -17,17 +17,17 @@
 /**
  * Defines the version and other meta-info about the plugin
  *
- * @package    mod_simplemod
- * @copyright  2019 Richard Jones richardnz@outlook.com
+ * @package    mod_pdfcertificate
+ * @copyright  2022 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_simplemod
- * @see https://github.com/justinhunt/moodle-mod_simplemod
+ * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
+ * @see https://github.com/justinhunt/moodle-mod_pdfcertificate
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'mod_simplemod';
-$plugin->version = 2020082701;
-$plugin->release = 'v1.1';
-$plugin->requires = 2020060900;
-$plugin->maturity = MATURITY_BETA;
+$plugin->component = 'mod_pdfcertificate';
+$plugin->version = 2022080500;
+$plugin->release = 'v1.0';
+$plugin->requires = 2022040100;
+$plugin->maturity = MATURITY_ALPHA;

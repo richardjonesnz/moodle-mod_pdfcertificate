@@ -17,11 +17,11 @@
 /**
  * Prints a list of module instances
  *
- * @package    mod_simplemod
- * @copyright  2019 Richard Jones richardnz@outlook.com
+ * @package    mod_pdfcertificate
+ * @copyright  2022 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_simplemod
- * @see https://github.com/justinhunt/moodle-mod_simplemod
+ * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
+ * @see https://github.com/justinhunt/moodle-mod_pdfcertificate
  */
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
@@ -37,8 +37,8 @@ $params = array(
     'context' => context_course::instance($course->id)
 );
 
-$strname = get_string('modulenameplural', 'mod_simplemod');
-$PAGE->set_url('/mod/simplemod/index.php', array('id' => $id));
+$strname = get_string('modulenameplural', 'mod_pdfcertificate');
+$PAGE->set_url('/mod/pdfcertificate/index.php', array('id' => $id));
 $PAGE->navbar->add($strname);
 $PAGE->set_title("$course->shortname: $strname");
 $PAGE->set_heading($course->fullname);
@@ -47,8 +47,8 @@ $PAGE->set_pagelayout('incourse');
 echo $OUTPUT->header();
 echo $OUTPUT->heading($strname);
 
-if (! $simplemods = get_all_instances_in_course('simplemod', $course)) {
-    notice(get_string('nosimplemods', 'simplemod'), new moodle_url('/course/view.php', array('id' => $course->id)));
+if (! $pdfcertificates = get_all_instances_in_course('pdfcertificate', $course)) {
+    notice(get_string('nopdfcertificates', 'pdfcertificate'), new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
 $usesections = course_format_uses_sections($course->format);
@@ -67,7 +67,7 @@ if ($usesections) {
 
 $modinfo = get_fast_modinfo($course);
 $currentsection = '';
-foreach ($modinfo->instances['simplemod'] as $cm) {
+foreach ($modinfo->instances['pdfcertificate'] as $cm) {
     $row = array();
     if ($usesections) {
         if ($cm->sectionnum !== $currentsection) {

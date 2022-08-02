@@ -19,15 +19,15 @@
  *
  * @see uninstall_plugin()
  *
- * @package    mod_simplemod
- * @copyright  2019 Richard Jones richardnz@outlook.com
+ * @package    mod_pdfcertificate
+ * @copyright  2022 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_simplemod
- * @see https://github.com/justinhunt/moodle-mod_simplemod*/
+ * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
+ * @see https://github.com/justinhunt/moodle-mod_pdfcertificate*/
 
 /**
  * Custom uninstallation procedure
  */
-function xmldb_simplemod_uninstall() {
+function xmldb_pdfcertificate_uninstall() {
     return true;
 }
