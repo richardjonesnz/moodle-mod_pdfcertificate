@@ -64,14 +64,6 @@ class mod_pdfcertificate_mod_form extends moodleform_mod {
         // Adding the standard "intro" and "introformat" fields.
         $this->standard_intro_elements();
 
-        // Add a specific mod_pdfcertificate field - title.
-        $mform->addElement('text', 'title',
-                get_string('title', 'mod_pdfcertificate'));
-        $mform->setType('title', PARAM_TEXT);
-
-        // Add standard grading elements.
-        $this->standard_grading_coursemodule_elements();
-
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 

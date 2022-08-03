@@ -30,19 +30,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['modulename'] = 'pdfcertificate';
-$string['modulenameplural'] = 'pdfcertificates';
+$string['modulename'] = 'pdfertificate';
+$string['modulenameplural'] = 'pdfertificates';
 $string['modulename_help'] = 'Use the pdfcertificate module for... | The pdfcertificate module allows...';
+$string['nopdfcertificates'] = 'No instances';
 $string['pdfcertificate:addinstance'] = 'Add a new pdfcertificate';
 $string['pdfcertificate:submit'] = 'Submit pdfcertificate';
 $string['pdfcertificate:view'] = 'View pdfcertificate';
-$string['pdfcertificatefieldset'] = 'Custom example fieldset';
-$string['pdfcertificatename'] = 'pdfcertificate name';
-$string['pdfcertificatename_help'] = 'This is the content of the help tooltip associated with the pdfcertificatename field. Markdown syntax is supported.';
 $string['pdfcertificate'] = 'pdfcertificate';
-$string['pluginadministration'] = 'pdfcertificate administration';
-$string['pluginname'] = 'pdfcertificate';
-$string['nopdfcertificates'] = 'No instances';
-
-// Mod form specific pdfcertificate settings.
-$string['title'] = 'Activity Title: ';
+$string['pluginadministration'] = 'PDF Certificate administration';
+$string['pluginname'] = 'PDF Certificate';
