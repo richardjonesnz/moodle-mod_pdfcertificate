@@ -59,7 +59,6 @@ class view implements renderable, templatable {
 
         $data = new stdClass();
 
-        $data->title = $this->pdfcertificate->title;
         // Moodle handles processing of std intro field.
         $data->body = format_module_intro('pdfcertificate',
                 $this->pdfcertificate, $this->id);

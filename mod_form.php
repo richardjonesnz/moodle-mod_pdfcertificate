@@ -64,10 +64,19 @@ class mod_pdfcertificate_mod_form extends moodleform_mod {
         // Adding the standard "intro" and "introformat" fields.
         $this->standard_intro_elements();
 
+        // Get and store the base image file.
+        $mform->addElement('filemanager', 'basepdf', get_string('basepdf', 'pdfcertificate'), null, $this->get_file_options());
+        $mform->addRule('basepdf', null, 'required', null, 'basepdf');
+
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 
         // Add standard buttons, common to all modules.
         $this->add_action_buttons();
+    }
+
+    private function get_file_options() {
+        return ['subdirs' => 0, 'maxbytes' => 104857600, 'areamaxbytes' => 104857600, 'maxfiles' => 1,
+        'accepted_types' => ['pdf']];
     }
 }

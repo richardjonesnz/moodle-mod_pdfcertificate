@@ -29,7 +29,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-
+$string['basepdf'] = 'Upload pdf base certificate';
 $string['modulename'] = 'pdfertificate';
 $string['modulenameplural'] = 'pdfertificates';
 $string['modulename_help'] = 'Use the pdfcertificate module for... | The pdfcertificate module allows...';
@@ -38,5 +38,7 @@ $string['pdfcertificate:addinstance'] = 'Add a new pdfcertificate';
 $string['pdfcertificate:submit'] = 'Submit pdfcertificate';
 $string['pdfcertificate:view'] = 'View pdfcertificate';
 $string['pdfcertificate'] = 'pdfcertificate';
+$string['pdfcertificatename'] = 'PDF Certificate';
+$string['pdfcertificatename_help'] = 'Adds a PDF certificate to your course.';
 $string['pluginadministration'] = 'PDF Certificate administration';
 $string['pluginname'] = 'PDF Certificate';

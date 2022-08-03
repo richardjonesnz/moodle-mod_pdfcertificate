@@ -49,6 +49,7 @@ if ($id) {
 
 // Print the page header.
 $PAGE->set_url('/mod/pdfcertificate/view.php', array('id' => $cm->id));
+$context = context_course::instance($course->id);
 
 require_login($course, true, $cm);
 
@@ -60,6 +61,7 @@ $PAGE->set_heading(format_string($course->fullname));
 if (!$pdfcertificate->intro) {
     $pdfcertificate->intro = '';
 }
+
 // Start output to browser.
 echo $OUTPUT->header();
 

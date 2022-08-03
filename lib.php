@@ -370,7 +370,7 @@ function pdfcertificate_update_grades(stdClass $pdfcertificate, $userid = 0) {
  * @return array of [(string)filearea] => (string)description
  */
 function pdfcertificate_get_file_areas($course, $cm, $context) {
-    return array();
+    return ['basepdf' => 'PDF base files'];
 }
 
 /**
