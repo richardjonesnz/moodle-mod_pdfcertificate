@@ -67,8 +67,21 @@ if ($pdfcertificate->basepdf) {
             ['subdirs' => 0, 'maxbytes' => 104857600, 'maxfiles' => 1]);
 }
 
-$url = moodle_url::make_pluginfile_url($context->id, 'mod_pdfcertificate', 'basepdf', 0,
-        '/', 'book.jpg');
+// A few surpising hoops to jump through to get the filename.
+$fs = get_file_storage();
+$files = $fs->get_area_files($context->id, 'mod_pdfcertificate', 'basepdf', 0);
+/**
+foreach ($files as $f) {
+        echo ltrim($f->get_filename()) . '<br>';
+}
+exit;
+*/
+$file = end($files);
+if ($file) {
+    $url = moodle_url::make_pluginfile_url($context->id, 'mod_pdfcertificate', 'basepdf', 0,
+            '/', $file->get_filename());
+}
+//var_dump($url);exit;
 
 // Start output to browser.
 echo $OUTPUT->header();
