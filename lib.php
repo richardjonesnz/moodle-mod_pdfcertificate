@@ -411,13 +411,16 @@ function pdfcertificate_get_file_info($browser, $areas, $course, $cm, $context, 
 function pdfcertificate_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
     global $DB, $CFG;
 
-    if ($context->contextlevel != CONTEXT_MODULE) {
-        send_file_not_found();
-    }
-
     require_login($course, true, $cm);
 
-    send_file_not_found();
+    $fs = get_file_storage();
+    $relativepath = implode('/', $args);
+    $fullpath = "/$context->id/mod_pdfcertificate/$filearea/$relativepath";
+    if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
+        return false;
+    }
+    // Finally send the file.
+    send_stored_file($file, 0, 0, $forcedownload, $options);
 }
 
 /* Navigation API */

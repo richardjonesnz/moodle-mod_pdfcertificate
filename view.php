@@ -62,11 +62,19 @@ if (!$pdfcertificate->intro) {
     $pdfcertificate->intro = '';
 }
 
+if ($pdfcertificate->basepdf) {
+    file_save_draft_area_files($pdfcertificate->basepdf, $context->id, 'mod_pdfcertificate', 'basepdf', 0,
+            ['subdirs' => 0, 'maxbytes' => 104857600, 'maxfiles' => 1]);
+}
+
+$url = moodle_url::make_pluginfile_url($context->id, 'mod_pdfcertificate', 'basepdf', 0,
+        '/', 'book.jpg');
+
 // Start output to browser.
 echo $OUTPUT->header();
 
 // Call classes/output/view and view.mustache to create output.
-echo $OUTPUT->render(new view($pdfcertificate, $cm->id));
+echo $OUTPUT->render(new view($pdfcertificate, $cm->id, $url));
 
 // End output to browser.
 echo $OUTPUT->footer();

@@ -77,6 +77,6 @@ class mod_pdfcertificate_mod_form extends moodleform_mod {
 
     private function get_file_options() {
         return ['subdirs' => 0, 'maxbytes' => 104857600, 'areamaxbytes' => 104857600, 'maxfiles' => 1,
-        'accepted_types' => ['pdf']];
+        'accepted_types' => ['pdf', 'jpg']];
     }
 }

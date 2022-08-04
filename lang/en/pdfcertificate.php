@@ -30,8 +30,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 $string['basepdf'] = 'Upload pdf base certificate';
-$string['modulename'] = 'pdfertificate';
-$string['modulenameplural'] = 'pdfertificates';
+$string['modulename'] = 'pdfcertificate';
+$string['modulenameplural'] = 'pdfcertificates';
 $string['modulename_help'] = 'Use the pdfcertificate module for... | The pdfcertificate module allows...';
 $string['nopdfcertificates'] = 'No instances';
 $string['pdfcertificate:addinstance'] = 'Add a new pdfcertificate';

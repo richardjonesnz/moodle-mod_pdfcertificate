@@ -43,11 +43,13 @@ class view implements renderable, templatable {
 
     protected $pdfcertificate;
     protected $id;
+    protected $url;
 
-    public function __construct($pdfcertificate, $id) {
+    public function __construct($pdfcertificate, $id, $url) {
 
         $this->pdfcertificate = $pdfcertificate;
         $this->id = $id;
+        $this->url = $url;
     }
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -62,6 +64,9 @@ class view implements renderable, templatable {
         // Moodle handles processing of std intro field.
         $data->body = format_module_intro('pdfcertificate',
                 $this->pdfcertificate, $this->id);
+
+        $data->item = $this->pdfcertificate->basepdf;
+        $data->itemurl = $this->url->out(false);
 
         return $data;
     }
