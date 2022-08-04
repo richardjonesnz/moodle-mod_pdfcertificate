@@ -20,8 +20,6 @@
  * @package    mod_pdfcertificate
  * @copyright  202 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
- * @see https://github.com/justinhunt/moodle-mod_pdfcertificate
  */
 
 namespace mod_pdfcertificate\output;
@@ -34,8 +32,9 @@ use stdClass;
 /**
  * pdfcertificate: Create a new view page renderable object
  *
- * @param object simnplemod - instance of pdfcertificate.
+ * @param object pdfcertificate - instance of pdfcertificate.
  * @param int id - course module id.
+ * @param object moodle_url the url of the base certificate.
  * @copyright  2020 Richard Jones <richardnz@outlook.com>
  */
 

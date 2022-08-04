@@ -20,14 +20,12 @@
  * @package    mod_pdfcertificate
  * @copyright  2022 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
- * @see https://github.com/justinhunt/moodle-mod_pdfcertificate */
+ */
 
 use mod_pdfcertificate\output\view;
 require_once('../../config.php');
 
-// We need the course module id (id) or
-// the pdfcertificate instance id (n).
+// We need the course module id (id) or the pdfcertificate instance id (n).
 $id = optional_param('id', 0, PARAM_INT);
 $n  = optional_param('n', 0, PARAM_INT);
 
@@ -59,7 +57,7 @@ $PAGE->set_heading(format_string($course->fullname));
 
 // Check for intro page content.
 if (!$pdfcertificate->intro) {
-    $pdfcertificate->intro = '';
+    $pdfcertificate->intro = get_string('intro', 'mod_pdfcertificate');
 }
 
 if ($pdfcertificate->basepdf) {
@@ -70,18 +68,12 @@ if ($pdfcertificate->basepdf) {
 // A few surpising hoops to jump through to get the filename.
 $fs = get_file_storage();
 $files = $fs->get_area_files($context->id, 'mod_pdfcertificate', 'basepdf', 0);
-/**
-foreach ($files as $f) {
-        echo ltrim($f->get_filename()) . '<br>';
-}
-exit;
-*/
+// We will only ever store one file in the basepdf area.
 $file = end($files);
 if ($file) {
     $url = moodle_url::make_pluginfile_url($context->id, 'mod_pdfcertificate', 'basepdf', 0,
             '/', $file->get_filename());
 }
-//var_dump($url);exit;
 
 // Start output to browser.
 echo $OUTPUT->header();

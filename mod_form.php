@@ -23,8 +23,7 @@
  * @package    mod_pdfcertificate
  * @copyright  2022 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
- * @see https://github.com/justinhunt/moodle-mod_pdfcertificate */
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -51,7 +50,7 @@ class mod_pdfcertificate_mod_form extends moodleform_mod {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         // Adding the standard "name" field.
-        $mform->addElement('text', 'name', get_string('pdfcertificatename', 'pdfcertificate'), array('size' => '64'));
+        $mform->addElement('text', 'name', get_string('instancename', 'pdfcertificate'), array('size' => '64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
@@ -59,7 +58,7 @@ class mod_pdfcertificate_mod_form extends moodleform_mod {
         }
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('name', 'pdfcertificatename', 'pdfcertificate');
+        $mform->addHelpButton('name', 'instancename', 'pdfcertificate');
 
         // Adding the standard "intro" and "introformat" fields.
         $this->standard_intro_elements();
@@ -67,6 +66,7 @@ class mod_pdfcertificate_mod_form extends moodleform_mod {
         // Get and store the base image file.
         $mform->addElement('filemanager', 'basepdf', get_string('basepdf', 'pdfcertificate'), null, $this->get_file_options());
         $mform->addRule('basepdf', null, 'required', null, 'basepdf');
+        $mform->addHelpButton('basepdf', 'basepdf', 'pdfcertificate');
 
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();

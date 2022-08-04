@@ -18,27 +18,23 @@
 /**
  * English strings for pdfcertificate
  *
- * You can have a rather longer description of the file as well,
- * if you like, and it can span multiple lines.
- *
  * @package    mod_pdfcertificate
  * @copyright  2022 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @see https://github.com/moodlehq/moodle-mod_pdfcertificate
- * @see https://github.com/justinhunt/moodle-mod_pdfcertificate
  */
 
 defined('MOODLE_INTERNAL') || die();
 $string['basepdf'] = 'Upload pdf base certificate';
+$string['basepdf_help'] = 'This will be used to create the certificate. Add placeholders as per the documentation.';
+$string['instancename'] = 'PDF Certificate name';
+$string['instancename_help'] = 'The name users will see in their course.';
+$string['intro'] = 'Personalise a pdf certificate which can be automatically awarded.';
 $string['modulename'] = 'pdfcertificate';
 $string['modulenameplural'] = 'pdfcertificates';
-$string['modulename_help'] = 'Use the pdfcertificate module for... | The pdfcertificate module allows...';
+$string['modulename_help'] = 'Use the pdfcertificate module for creating certificates | The pdfcertificate module allows you to personalise a pdf certificate which can be automatically awarded.';
 $string['nopdfcertificates'] = 'No instances';
 $string['pdfcertificate:addinstance'] = 'Add a new pdfcertificate';
 $string['pdfcertificate:submit'] = 'Submit pdfcertificate';
-$string['pdfcertificate:view'] = 'View pdfcertificate';
-$string['pdfcertificate'] = 'pdfcertificate';
-$string['pdfcertificatename'] = 'PDF Certificate';
-$string['pdfcertificatename_help'] = 'Adds a PDF certificate to your course.';
+$string['pdfcertificate:view'] = 'View a PDF Certificate';
 $string['pluginadministration'] = 'PDF Certificate administration';
 $string['pluginname'] = 'PDF Certificate';
