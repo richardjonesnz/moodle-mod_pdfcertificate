@@ -1,0 +1,60 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template mod_simplelesson/lesson_editing
+    Renders a summary of the pages in the lesson and editing functions.
+    Context variables required for this template:
+    * caption string page title
+    * tableheaders string array of column headers for the table
+    * tabledata mixed two dimensional array of row data
+    Example context (json):
+    {
+        "caption": {
+          "caption": "This table"
+        }
+        "table": {
+          "tableheaders": ["header 1", "header2", ...]
+          "tabledata": [ ["item1, item2, ..."], ["item1, item2, ..."] ]
+        }
+    }
+}}
+<div class="container">
+<ul class="nav nav-tabs">
+    <li class="nav-item"><a class="nav-link" href="{{viewurl}}">
+        {{# str }} viewtab, mod_pdfcertificate {{/ str }}</a></li>
+    <li class="nav-item"><a class="nav-link active" href="{{templatesurl}}">
+        {{# str }} templatestab, mod_pdfcertificate {{/ str }}</a></li>
+  </ul>
+
+</div>
+
+<h3>{{#str}}templatestab, mod_pdfcertificate{{/str}}</h3>
+<p>{{caption}}</p>
+<div class="table-responsive">
+<table class="table table-striped table-sm">
+    <thead>
+      {{#headers}}
+          <th>{{.}}</th>
+      {{/headers}}
+    </thead>
+    <tbody>
+      {{#tabledata}}
+        {{> mod_pdfcertificate/template_row}}
+      {{/tabledata}}
+    </tbody>
+</table>
+<a href="{{{add_template}}}"button type="button" class="btn btn-primary btn-sm">
+           {{#str}}addtemplate, mod_pdfcertificate{{/str}}</a>
+<div>

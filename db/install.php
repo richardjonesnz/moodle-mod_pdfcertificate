@@ -33,6 +33,21 @@
  * @see upgrade_plugins_modules()
  */
 function xmldb_pdfcertificate_install() {
+    global $DB;
+
+    // Populate the pdf elements table with some standard elements.
+    $names = ['site', 'coursename', 'date', 'username', 'teacher'];
+    $descriptions = ['Moodle site name', 'Course fullname', 'Current Date',
+            'User\'s full name', 'Teacher\'s full name'];
+
+    for($i = 0; $i < count($names); $i++) {
+        $items[] = new stdClass();
+        $items[$i]->name = $names[$i];
+        $items[$i]->description = $descriptions[$i];
+        $items[$i]->type = 'dynamic';
+        $items[$i]->timecreated = time();
+    }
+    $DB->insert_records('pdfelements', $items);
 }
 
 /**

@@ -28,7 +28,7 @@ use renderable;
 use renderer_base;
 use templatable;
 use stdClass;
-
+use moodle_url;
 /**
  * pdfcertificate: Create a new view page renderable object
  *
@@ -41,14 +41,14 @@ use stdClass;
 class view implements renderable, templatable {
 
     protected $pdfcertificate;
-    protected $id;
-    protected $url;
+    protected $courseid;
+    protected $cmid;
 
-    public function __construct($pdfcertificate, $id, $url) {
+    public function __construct($pdfcertificate, $courseid, $cmid) {
 
         $this->pdfcertificate = $pdfcertificate;
-        $this->id = $id;
-        $this->url = $url;
+        $this->courseid = $courseid;
+        $this->cmid = $cmid;
     }
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -61,11 +61,14 @@ class view implements renderable, templatable {
         $data = new stdClass();
 
         // Moodle handles processing of std intro field.
-        $data->body = format_module_intro('pdfcertificate',
-                $this->pdfcertificate, $this->id);
+        $data->body = format_module_intro('pdfcertificate', $this->pdfcertificate, $this->cmid);
 
-        $data->item = $this->pdfcertificate->basepdf;
-        $data->itemurl = $this->url->out(false);
+        // Navigation tabs.
+        $url = new moodle_url('view.php', ['n' => $this->pdfcertificate->id]);
+        $data->viewurl = $url->out(false);
+        $url = new moodle_url('manage_templates.php', ['courseid' => $this->courseid,
+                'pdfcertificateid' => $this->pdfcertificate->id]);
+        $data->templatesurl = $url->out(false);
 
         return $data;
     }
