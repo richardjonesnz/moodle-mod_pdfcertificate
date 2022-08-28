@@ -59,9 +59,6 @@ class template_form extends \moodleform {
         $mform->addRule('baseimage_filemanager', null, 'required');
         $mform->addHelpButton('baseimage_filemanager', 'baseimage', 'mod_pdfcertificate');
 
-        //Add a placeholder for the baseimageurl
-        $mform->addElement('hidden', 'baseimageurl', 'filename');
-
         // Hidden.
         $mform->addElement('hidden', 'pdfcertificateid', $this->_customdata['pdfcertificateid']);
         $mform->setType('pdfcertificateid', PARAM_INT);

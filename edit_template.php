@@ -38,10 +38,6 @@ $PAGE->set_url('/mod/pdfcertificate/manage_templates.php',
         ['courseid' => $courseid,
          'pdfcertificateid' => $pdfcertificateid,
          'templateid' => $templateid]);
-$PAGE->set_heading($SITE->fullname);
-$PAGE->set_pagelayout('course');
-$PAGE->set_title(get_string('pluginname', 'mod_pdfcertificate'));
-$PAGE->navbar->add(get_string('pluginname', 'mod_pdfcertificate'));
 
 require_login();
 
@@ -72,8 +68,6 @@ if ($mform->is_cancelled()) {
 
 if ($data = $mform->get_data()) {
 
-    var_dump($data);exit;
-
     $timenow = time();
     $data->timemodified = $timenow;
 
@@ -86,7 +80,7 @@ if ($data = $mform->get_data()) {
 
     // Get the uploaded file into storage.
     $data = file_postupdate_standard_filemanager($data, 'baseimage', ['subdirs' => 0, 'maxbytes' => 104857600, 'maxfiles' => 1],
-            $context, 'mod_pdfcertificate', 'baseimage', $data->id);
+            $context, 'mod_pdfcertificate', 'baseimage', $templateid);
 
     // Get the file name.
     $fs = get_file_storage();
@@ -98,7 +92,7 @@ if ($data = $mform->get_data()) {
     // Update this record.
     $DB->update_record('pdftemplates', $data);
 
-    redirect(new moodle_url('manage_templates.php', ['id' => $courseid]), '', 1);
+    redirect(new moodle_url('manage_templates.php', ['courseid' => $courseid, 'pdfcertificateid' => $pdfcertificateid]), '', 1);
 }
 
 // Output the page.
