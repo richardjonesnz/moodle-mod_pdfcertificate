@@ -40,14 +40,14 @@ use moodle_url;
 
 class manage_templates implements renderable, templatable {
 
-    protected $pdfcertificate;
-    protected $course;
+    protected $pdfcertificateid;
+    protected $courseid;
     protected $templates;
 
-    public function __construct($pdfcertificate, $course, $templates) {
+    public function __construct($pdfcertificateid, $courseid, $templates) {
 
-        $this->pdfcertificate = $pdfcertificate;
-        $this->course = $course;
+        $this->pdfcertificateid = $pdfcertificateid;
+        $this->courseid = $courseid;
         $this->templates = $templates;
     }
     /**
@@ -59,7 +59,7 @@ class manage_templates implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
 
         $table = new stdClass();
-        $baseparams = ['courseid' => $this->course->id, 'pdfcertificateid' => $this->pdfcertificate->id];
+        $baseparams = ['courseid' => $this->courseid, 'pdfcertificateid' => $this->pdfcertificateid];
         $table->add_template = new moodle_url('edit_template.php', $baseparams);
 
         // Get the table headers.
@@ -74,7 +74,8 @@ class manage_templates implements renderable, templatable {
             $data['description'] = $template->description;
             $data['height'] = $template->height;
             $data['width'] = $template->width;
-            $data['baseimageurl'] = $template->baseimageurl;
+            // Just get the filename.
+            $data['baseimageurl'] = substr($template->baseimageurl, strrpos($template->baseimageurl, '/') + 1);
 
             // Set up the action links.
             $actions = array();
@@ -83,18 +84,21 @@ class manage_templates implements renderable, templatable {
             $icon = ['icon' => 't/edit', 'component' => 'core', 'alt' => get_string('edittemplate', 'mod_pdfcertificate')];
             $actions['edit'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
             $url = new moodle_url('delete_template.php', $baseparams);
-            $icon = ['icon' => 't/block', 'component' => 'core', 'alt' => get_string('edittemplate', 'mod_pdfcertificate')];
+            $icon = ['icon' => 't/block', 'component' => 'core', 'alt' => get_string('deletetemplate', 'mod_pdfcertificate')];
             $actions['delete'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
+            $url = new moodle_url('define_elements.php', $baseparams);
+            $icon = ['icon' => 't/viewdetails', 'component' => 'core', 'alt' => get_string('definetemplate', 'mod_pdfcertificate')];
+            $actions['define'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
 
             $data['actions'] = $actions;
 
             $table->tabledata[] = $data;
         }
         // Navigation tabs.
-        $url = new moodle_url('view.php', ['n' => $this->pdfcertificate->id]);
+        $url = new moodle_url('view.php', ['n' => $this->pdfcertificateid]);
         $table->viewurl = $url->out(false);
-        $url = new moodle_url('manage_templates.php', ['courseid' => $this->course->id,
-                'pdfcertificateid' => $this->pdfcertificate->id]);
+        $url = new moodle_url('manage_templates.php', ['courseid' => $this->courseid,
+                'pdfcertificateid' => $this->pdfcertificateid]);
         $table->templatesurl = $url->out(false);
 
         return $table;

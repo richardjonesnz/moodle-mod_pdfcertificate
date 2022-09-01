@@ -1,0 +1,19 @@
+/* Styles for mod_pdfcertificate */
+.mod_pdfcertificate_define {
+    border: 2px solid steelblue;
+    display:flex;
+    padding:5px;
+}
+.mod_pdfcertificate_define img {
+    margin-left: auto;
+}
+
+.mod_pdfcertificate_toolbox {
+    padding:10px;
+    border: 2px solid steelblue;
+}
+.mod_pdfcertificate_toolbox > * {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

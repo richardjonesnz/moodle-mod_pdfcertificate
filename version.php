@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_pdfcertificate';
-$plugin->version = 2022082701;
+$plugin->version = 2022082900;
 $plugin->release = 'v1.0';
 $plugin->requires = 2022040100;
 $plugin->maturity = MATURITY_ALPHA;

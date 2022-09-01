@@ -24,11 +24,14 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+$string['addelement'] = 'Add element';
 $string['actions'] = 'actions';
 $string['addtemplate'] = 'New template';
 $string['baseimage'] = 'Base image';
 $string['baseimage_help'] = 'This will be used to create the certificate. Add placeholders as per the documentation.';
 $string['baseimageurl'] = 'File name';
+$string['clear'] = 'Clear';
+$string['definetemplate'] = 'Define elements';
 $string['deletetemplate'] = 'Delete template';
 $string['description'] = 'Description';
 $string['edittemplate'] = 'Edit template';

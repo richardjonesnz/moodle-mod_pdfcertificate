@@ -87,7 +87,9 @@ if ($data = $mform->get_data()) {
     $files = $fs->get_area_files($context->id, 'mod_pdfcertificate', 'baseimage', $templateid);
     $file = end($files);  // There's only 1 base file allowed per template.
     if ($file) {
-        $data->baseimageurl = $file->get_filename();
+        //$data->baseimageurl = $file->get_filename();
+        $data->baseimageurl = moodle_url::make_pluginfile_url($context->id, 'mod_pdfcertificate', 'baseimage',
+                $templateid, '/', $file->get_filename())->out();
     }
     // Update this record.
     $DB->update_record('pdftemplates', $data);

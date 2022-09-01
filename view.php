@@ -41,8 +41,9 @@ if ($id) {
 }
 
 // Print the page header.
-$PAGE->set_url('/mod/pdfcertificate/view.php', array('id' => $cm->id));
-$context = context_course::instance($course->id);
+$PAGE->set_url('/mod/pdfcertificate/view.php', ['id' => $cm->id]);
+$PAGE->set_pagelayout('course');
+$context = context_module::instance($cm->id);
 
 require_login($course, true, $cm);
 
@@ -50,6 +51,16 @@ require_login($course, true, $cm);
 $PAGE->set_title(format_string($pdfcertificate->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->activityheader->set_description('');
+
+// Trigger course_module_viewed event.
+$event = \mod_page\event\course_module_viewed::create(['context' => $context, 'objectid' => $cm->id]);
+$event->add_record_snapshot('course', $course);
+$event->add_record_snapshot($cm->modname, $pdfcertificate);
+$event->trigger();
+
+// Completion.
+$completion = new completion_info($course);
+$completion->set_module_viewed($cm);
 
 // Output to browser.
 echo $OUTPUT->header();
