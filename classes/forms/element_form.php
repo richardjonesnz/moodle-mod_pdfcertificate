@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Template creation form.
+ * Element creation form.
  *
  * @package   mod_pdfcertificate
  * @copyright 2022 Richard Jones https://richardnz.net
@@ -25,7 +25,7 @@ require_once('../../lib/formslib.php');
 /**
  * Define the form elements.
  */
-class template_form extends \moodleform {
+class element_form extends \moodleform {
 
    /**
     * Defines forms elements
@@ -44,36 +44,30 @@ class template_form extends \moodleform {
         $mform->addRule('description', null, 'required', null, null);
         $mform->setType('description', PARAM_TEXT);
 
-        // Dimensions.
-        $mform->addElement('text', 'height', get_string('height', 'mod_pdfcertificate'), ['size' => '4']);
-        $mform->addRule('height', null, 'required', null, '210');
-        $mform->setType('height', PARAM_INT);
+        $mform->addElement('text', 'type', get_string('type', 'mod_pdfcertificate'));
+        $mform->addRule('type', null, 'required', null, null);
+        $mform->setType('type', PARAM_TEXT);
 
-        $mform->addElement('text', 'width', get_string('width', 'mod_pdfcertificate'), ['size' => '4']);
-        $mform->addRule('width', null, 'required', null, '297');
-        $mform->setType('width', PARAM_INT);
+        $mform->addElement('static', 'info', get_string('note', 'mod_pdfcertificate'),
+                get_string('ignored', 'mod_pdfcertificate'));
 
-        // Get and store the base image file.
-        $mform->addElement('filemanager', 'baseimage_filemanager', get_string('baseimage', 'mod_pdfcertificate'),
-                null, $this->get_file_options());
-        $mform->addRule('baseimage_filemanager', null, 'required');
-        $mform->addHelpButton('baseimage_filemanager', 'baseimage', 'mod_pdfcertificate');
+        $mform->addElement('text', 'mtable', get_string('table', 'mod_pdfcertificate'));
+        $mform->setType('mtable', PARAM_TEXT);
+
+        $mform->addElement('text', 'mfield', get_string('field', 'mod_pdfcertificate'));
+        $mform->setType('mfield', PARAM_TEXT);
 
         // Hidden.
         $mform->addElement('hidden', 'pdfcertificateid', $this->_customdata['pdfcertificateid']);
         $mform->setType('pdfcertificateid', PARAM_INT);
         $mform->addElement('hidden', 'courseid', $this->_customdata['courseid']);
         $mform->setType('courseid', PARAM_INT);
-        $mform->addElement('hidden', 'templateid', $this->_customdata['templateid']);
-        $mform->setType('templateid', PARAM_INT);
+        $mform->addElement('hidden', 'elementid', $this->_customdata['elementid']);
+        $mform->setType('elementid', PARAM_INT);
 
 
         // Add standard buttons, common to all modules.
         $this->add_action_buttons();
 
-    }
-    private function get_file_options() {
-        return ['subdirs' => 0, 'maxbytes' => 104857600, 'areamaxbytes' => 104857600, 'maxfiles' => 1,
-        'accepted_types' => ['web_image']];
     }
 }

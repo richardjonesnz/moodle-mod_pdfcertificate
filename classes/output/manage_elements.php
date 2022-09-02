@@ -73,8 +73,8 @@ class manage_elements implements renderable, templatable {
             $data['name'] = $element->name;
             $data['description'] = $element->description;
             $data['type'] = $element->type;
-            $data['table'] = $element->table;
-            $data['field'] = $element->field;
+            $data['mtable'] = $element->mtable;
+            $data['mfield'] = $element->mfield;
 
             // Set up the action links.
             $actions = array();

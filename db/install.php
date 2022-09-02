@@ -39,12 +39,16 @@ function xmldb_pdfcertificate_install() {
     $names = ['site', 'coursename', 'date', 'username', 'teacher'];
     $descriptions = ['Moodle site name', 'Course fullname', 'Current Date',
             'User\'s full name', 'Teacher\'s full name'];
+    $tables = ['course', 'course', 'none', 'user', 'user'];
+    $fields = ['fullname', 'shortname', 'none', 'username', 'username'];
 
     for($i = 0; $i < count($names); $i++) {
         $items[] = new stdClass();
         $items[$i]->name = $names[$i];
         $items[$i]->description = $descriptions[$i];
         $items[$i]->type = 'dynamic';
+        $items[$i]->mtable = $tables[$i];
+        $items[$i]->mfield = $fields[$i];
         $items[$i]->timecreated = time();
     }
     $DB->insert_records('pdfelements', $items);
