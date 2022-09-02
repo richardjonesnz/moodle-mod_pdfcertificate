@@ -3,15 +3,11 @@ import Selectors from './local/selectors';
 import Log from 'core/log';
 import Url from 'core/url';
 
-//let color = 'black';
-
-const canvas = document.getElementById('mod_pdfcertificate_canvas');
-const ctx = canvas.getContext('2d');
+const dragElement(document)
 
 const registerEventListeners = (courseid) => {
     document.addEventListener('click', e => {
         if (e.target.closest(Selectors.actions.clearButton)) {
-            clearCanvas();
             Log.info('Clear clicked');
         }
         if (e.target.closest(Selectors.actions.cancelButton)) {
@@ -20,10 +16,6 @@ const registerEventListeners = (courseid) => {
         }
     });
 };
-
-function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
 
 export const init = (courseid) => {
     registerEventListeners(courseid);

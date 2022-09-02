@@ -7,6 +7,16 @@
 .mod_pdfcertificate_define img {
     margin-left: auto;
 }
+.mod_pdfcertificate_elements {
+    position:absolute;
+    border: 2px solid steelblue;
+    display:inline-flex;
+    align-items:left;
+    padding:5px;
+}
+.mod_pdfcertificate_list {
+    position:absolute;
+}
 
 .mod_pdfcertificate_toolbox {
     padding:10px;

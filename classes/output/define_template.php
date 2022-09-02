@@ -29,10 +29,10 @@ use renderer_base;
 use templatable;
 use stdClass;
 /**
- * pdfcertificate: Design a pdf certificate by adding elements.
+ * pdfcertificate: Design a pdf certificate template by adding elements.
  */
 
-class define_elements implements renderable, templatable {
+class define_template implements renderable, templatable {
 
     protected $template;
     protected $pdfcertificateid;
@@ -51,15 +51,21 @@ class define_elements implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
+        global $DB;
 
-        $data = array();
+        $data = $this->template;
+        $data->courseid = $this->courseid;
+        $data->pdfcertificateid = $this->pdfcertificateid;
 
-        $data['name'] = $this->template->name;
-        $data['height'] = $this->template->height;
-        $data['width'] = $this->template->width;
-        $data['courseid'] = $this->courseid;
-        $data['pdfcertificateid'] = $this->pdfcertificateid;
-        $data['baseimageurl'] = $this->template->baseimageurl;
+        $elements = $DB->get_records('pdfelements', null, 'name, description');
+        $data->elements = array();
+
+        foreach ($elements as $element) {
+            $items = array();
+            $items['name'] = $element->name;
+            $items['description'] = $element->description;
+            $data->elements[] = $items;
+        }
 
         return $data;
 

@@ -16,7 +16,7 @@
 }}
 
 {{!
-    @template mod_pdfcertificate/define_elements
+    @template mod_pdfcertificate/define_template
 
     Moodle renders a simple view page
 
@@ -40,9 +40,18 @@
 }}
 <div class="card"
     <h2 class="card-title">{{name}}</h2>
-</div>
+
 <div class="mod_pdfcertificate_define">
+  <div class="mod_pdcertificate_elements">
+    <h5 class="card-title">{{#str}} elementslist, mod_pdfcertificate {{/ str}}</h5>
+    <ul id="mod_pdfcertificate_list">
+      {{# elements}}
+        <li>{{name}}</li>
+      {{/ elements}}
+    </ul>
+  </div>
   <img src="{{baseimageurl}}" width="80%">
+</div>
 </div>
     <div class="mod_pdfcertificate_toolbox">
         <button class="btn btn-primary" data-action="mod_pdcertificate/save_button">
@@ -65,7 +74,7 @@
 </div>
 
 {{#js}}
-    require(['mod_pdfcertificate/define_elements'],
+    require(['mod_pdfcertificate/define_template'],
         function(module) {
             module.init({{courseid}});
         }

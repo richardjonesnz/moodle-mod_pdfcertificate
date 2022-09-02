@@ -69,6 +69,9 @@ class view implements renderable, templatable {
         $url = new moodle_url('manage_templates.php', ['courseid' => $this->courseid,
                 'pdfcertificateid' => $this->pdfcertificate->id]);
         $data->templatesurl = $url->out(false);
+        $url = new moodle_url('manage_elements.php', ['courseid' => $this->courseid,
+                'pdfcertificateid' => $this->pdfcertificate->id]);
+        $data->elementsurl = $url->out(false);
 
         return $data;
     }

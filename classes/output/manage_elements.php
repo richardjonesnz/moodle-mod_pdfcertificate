@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Gives a list of existing templates
+ * Gives a list of existing elements
  *
  * @package    mod_pdfcertificate
  * @copyright  202 Richard Jones richardnz@outlook.com
@@ -30,7 +30,7 @@ use templatable;
 use stdClass;
 use moodle_url;
 /**
- * pdfcertificate: Create a new manage templates renderable object
+ * pdfcertificate: Create a new manage elements renderable object
  *
  * @param object pdfcertificate - instance of pdfcertificate.
  * @param int id - course module id.
@@ -38,17 +38,17 @@ use moodle_url;
  * @copyright  2020 Richard Jones <richardnz@outlook.com>
  */
 
-class manage_templates implements renderable, templatable {
+class manage_elements implements renderable, templatable {
 
     protected $pdfcertificateid;
     protected $courseid;
-    protected $templates;
+    protected $elements;
 
-    public function __construct($pdfcertificateid, $courseid, $templates) {
+    public function __construct($pdfcertificateid, $courseid, $elements) {
 
         $this->pdfcertificateid = $pdfcertificateid;
         $this->courseid = $courseid;
-        $this->templates = $templates;
+        $this->elements = $elements;
     }
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -60,35 +60,31 @@ class manage_templates implements renderable, templatable {
 
         $table = new stdClass();
         $baseparams = ['courseid' => $this->courseid, 'pdfcertificateid' => $this->pdfcertificateid];
-        $table->add_template = new moodle_url('edit_template.php', $baseparams);
+        $table->add_element = new moodle_url('edit_element.php', $baseparams);
 
         // Get the table headers.
         $table->headers = self::get_headers();
 
         // Set up the table rows.
-        foreach($this->templates as $template) {
+        foreach($this->elements as $element) {
             $data = array();
 
-            $data['id'] = $template->id;
-            $data['name'] = $template->name;
-            $data['description'] = $template->description;
-            $data['height'] = $template->height;
-            $data['width'] = $template->width;
-            // Just get the filename.
-            $data['baseimageurl'] = substr($template->baseimageurl, strrpos($template->baseimageurl, '/') + 1);
+            $data['id'] = $element->id;
+            $data['name'] = $element->name;
+            $data['description'] = $element->description;
+            $data['type'] = $element->type;
+            $data['table'] = $element->table;
+            $data['field'] = $element->field;
 
             // Set up the action links.
             $actions = array();
 
-            $url = new moodle_url('edit_template.php', $baseparams);
+            $url = new moodle_url('edit_element.php', $baseparams);
             $icon = ['icon' => 't/edit', 'component' => 'core', 'alt' => get_string('edit', 'mod_pdfcertificate')];
-            $actions['edit'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
-            $url = new moodle_url('delete_template.php', $baseparams);
+            $actions['edit'] = ['link' => $url->out(false, ['elementid' => $element->id]), 'icon' => $icon];
+            $url = new moodle_url('delete_element.php', $baseparams);
             $icon = ['icon' => 't/block', 'component' => 'core', 'alt' => get_string('delete', 'mod_pdfcertificate')];
-            $actions['delete'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
-            $url = new moodle_url('define_template.php', $baseparams);
-            $icon = ['icon' => 't/viewdetails', 'component' => 'core', 'alt' => get_string('definetemplate', 'mod_pdfcertificate')];
-            $actions['define'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
+            $actions['delete'] = ['link' => $url->out(false, ['elementid' => $element->id]), 'icon' => $icon];
 
             $data['actions'] = $actions;
 
@@ -103,20 +99,19 @@ class manage_templates implements renderable, templatable {
         $url = new moodle_url('manage_elements.php', ['courseid' => $this->courseid,
                 'pdfcertificateid' => $this->pdfcertificateid]);
         $table->elementsurl = $url->out(false);
-
         return $table;
     }
     /**
-     * Get the headers for the templates table
+     * Get the headers for the elements table
      */
     private function get_headers() {
 
         return [get_string('id', 'mod_pdfcertificate'),
                 get_string('name', 'mod_pdfcertificate'),
                 get_string('description', 'mod_pdfcertificate'),
-                get_string('height', 'mod_pdfcertificate'),
-                get_string('width', 'mod_pdfcertificate'),
-                get_string('baseimageurl', 'mod_pdfcertificate'),
+                get_string('type', 'mod_pdfcertificate'),
+                get_string('table', 'mod_pdfcertificate'),
+                get_string('field', 'mod_pdfcertificate'),
                 get_string('actions', 'mod_pdfcertificate'),
                ];
     }
