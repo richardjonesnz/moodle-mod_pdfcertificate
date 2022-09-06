@@ -27,23 +27,28 @@ $courseid = required_param('courseid', PARAM_INT);
 $pdfcertificateid = required_param('pdfcertificateid', PARAM_INT);
 $templateid = optional_param('templateid', 0, PARAM_INT);
 
+$pdfcertificate = $DB->get_record('pdfcertificate', ['id' => $pdfcertificateid], '*', MUST_EXIST);
 $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 $cm = get_coursemodule_from_instance('pdfcertificate', $pdfcertificateid, $courseid, false, MUST_EXIST);
-$pdfcertificate = $DB->get_record('pdfcertificate', ['id' => $cm->instance], '*', MUST_EXIST);
 
-global $SITE;
+global $DB;
 
 $PAGE->set_course($course);
-$PAGE->set_url('/mod/pdfcertificate/manage_templates.php',
+$PAGE->set_url('/mod/pdfcertificate/edit_template.php',
         ['courseid' => $courseid,
          'pdfcertificateid' => $pdfcertificateid,
          'templateid' => $templateid]);
+$PAGE->set_pagelayout('course');
 
 require_login();
+$context = context_module::instance($cm->id);
 
-$context = context_course::instance($courseid);
+// Set the page information.
+$PAGE->set_title(format_string($pdfcertificate->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->activityheader->set_description('');
+$PAGE->activityheader->set_hideoverflow(false);
+
 
 // Check the users permissions to see the edit template page.
 require_capability('mod/pdfcertificate:manage', $context);

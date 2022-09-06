@@ -15,17 +15,42 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines the version and other meta-info about the plugin
+ * Shows an item and a confirm deletion dialog.
  *
  * @package    mod_pdfcertificate
- * @copyright  2022 Richard Jones richardnz@outlook.com
+ * @copyright  202 Richard Jones richardnz@outlook.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace mod_pdfcertificate\output;
 
-$plugin->component = 'mod_pdfcertificate';
-$plugin->version = 2022090600;
-$plugin->release = 'v1.0';
-$plugin->requires = 2022040100;
-$plugin->maturity = MATURITY_ALPHA;
+use renderable;
+use renderer_base;
+use templatable;
+use stdClass;
+
+class delete_item implements renderable, templatable {
+
+    protected $item;
+    protected $mform;
+
+    public function __construct($mform, $item) {
+        global $DB;
+
+        $this->mform = $mform;
+        $this->item = $item;
+    }
+    /**
+     * Export this data so it can be used as the context for a mustache item.
+     *
+     * @param renderer_base $output
+     * @return stdClass
+     */
+    public function export_for_template(renderer_base $output) {
+
+        $data = $this->item;
+        $data->mform = $this->mform->render();
+        return $data;
+
+    }
+}
