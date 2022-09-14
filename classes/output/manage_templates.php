@@ -85,9 +85,10 @@ class manage_templates implements renderable, templatable {
             $url = new moodle_url('edit_template.php', $baseparams);
             $icon = ['icon' => 't/edit', 'component' => 'core', 'alt' => get_string('edit', 'mod_pdfcertificate')];
             $actions['edit'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
-            $url = new moodle_url('delete_template.php', $baseparams);
+            $url = new moodle_url('delete_item.php', $baseparams);
             $icon = ['icon' => 't/block', 'component' => 'core', 'alt' => get_string('delete', 'mod_pdfcertificate')];
-            $actions['delete'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
+            $actions['delete'] = ['link' => $url->out(false, ['itemid' => $template->id, 'return' => 'template']),
+                    'icon' => $icon];
 
             $data['actions'] = $actions;
 

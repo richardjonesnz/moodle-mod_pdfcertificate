@@ -36,6 +36,7 @@ $string['confirm'] = 'Confirm';
 $string['definetemplate'] = 'Define template elements';
 $string['delete'] = 'Please confirm deletion of this item';
 $string['deleted'] = '{$a} deleted';
+$string['deletefailed'] = 'Could not delete record';
 $string['description'] = 'Description';
 $string['designslist'] = 'Designs';
 $string['designstab'] = 'Manage designs';

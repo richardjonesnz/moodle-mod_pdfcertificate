@@ -39,10 +39,10 @@ class confirm_delete_form extends \moodleform {
         $mform->setType('pdfcertificateid', PARAM_INT);
         $mform->addElement('hidden', 'courseid', $this->_customdata['courseid']);
         $mform->setType('courseid', PARAM_INT);
-        $mform->addElement('hidden', 'templateid', $this->_customdata['templateid']);
-        $mform->setType('templateid', PARAM_INT);
-        $mform->addElement('hidden', 'elementid', $this->_customdata['elementid']);
-        $mform->setType('elementid', PARAM_INT);
+        $mform->addElement('hidden', 'itemid', $this->_customdata['itemid']);
+        $mform->setType('itemid', PARAM_INT);
+        $mform->addElement('hidden', 'return', $this->_customdata['return']);
+        $mform->setType('return', PARAM_ALPHA);
 
         $this->add_action_buttons(true, get_string('confirm', 'mod_pdfcertificate'));
     }

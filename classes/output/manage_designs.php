@@ -87,7 +87,8 @@ class manage_designs implements renderable, templatable {
             $actions['edit'] = ['link' => $url->out(false, ['designid' => $design->id]), 'icon' => $icon];
             $url = new moodle_url('delete_design.php', $baseparams);
             $icon = ['icon' => 't/block', 'component' => 'core', 'alt' => get_string('delete', 'mod_pdfcertificate')];
-            $actions['delete'] = ['link' => $url->out(false, ['designid' => $design->id]), 'icon' => $icon];
+            $actions['delete'] = ['link' => $url->out(false, ['itemid' => $design->id, 'return' => 'design']),
+                    'icon' => $icon];
 
             $data['actions'] = $actions;
 
