@@ -37,11 +37,18 @@
 <div class="card"
     <h2 class="card-title">{{name}}</h2>
     {{# baseimageurl}}
+        <h5>{{# str}} baseimage, mod_pdfcertificate {{/ str}}</h5>
         <img src="{{baseimageurl}}" width="80%">
     {{/ baseimageurl}}
     {{# type}}
-        {{element}}: {{type}} {{mtable}} {{mfield}}
+        <h5>{{# str}} element, mod_pdfcertificate {{/ str}}</h5>
+        <p>{{name}} {{type}}</p>
     {{/ type}}
+    {{# pdfelementlistid}}
+        <h5>{{# str}} elementlist, mod_pdfcertificate {{/ str}}</h5>
+        {{elementlist}}: {{name}} {{description}}
+    {{/ pdfelementlistid}}
+    <br />
     <p>{{#str}}delete, mod_pdfcertificate{{/str}}</p>
     {{{mform}}}
 </div>

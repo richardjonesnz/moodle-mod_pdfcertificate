@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Element creation form.
+ * design creation form.
  *
  * @package   mod_pdfcertificate
  * @copyright 2022 Richard Jones https://richardnz.net
@@ -23,48 +23,49 @@
 namespace mod_pdfcertificate\forms;
 require_once('../../lib/formslib.php');
 /**
- * Define the form elements.
+ * Define the form designs.
  */
-class element_form extends \moodleform {
+class design_form extends \moodleform {
 
    /**
-    * Defines forms elements
+    * Defines forms designs
     */
     public function definition() {
-
+        global $DB;
         $mform = $this->_form;
 
-        // The element name.
+        // The design name.
         $mform->addElement('text', 'name', get_string('name', 'mod_pdfcertificate'), ['size' => '64']);
         $mform->addRule('name', null, 'required', null, null);
         $mform->setType('name', PARAM_TEXT);
 
-        // The element description.
+        // The design description.
         $mform->addElement('text', 'description', get_string('description', 'mod_pdfcertificate'), ['size' => '64']);
         $mform->addRule('description', null, 'required', null, null);
         $mform->setType('description', PARAM_TEXT);
 
-        $mform->addElement('text', 'type', get_string('type', 'mod_pdfcertificate'));
-        $mform->addRule('type', null, 'required', null, null);
-        $mform->setType('type', PARAM_TEXT);
+        // The template to use for this design.
+        $records = $DB->get_records('pdftemplates', null, null, 'id, name, baseimage');
+        $templates = [];
+        // Array of data for select.
+        foreach ($records as $record) {
+            $templates[$record->id] = $record->id . ': ' . $record->name . ' (' . $record->baseimage . ')';
+        }
+        $templates[0] = get_string('none', 'mod_pdfcertificate');
 
-        $mform->addElement('static', 'info', get_string('note', 'mod_pdfcertificate'),
-                get_string('ignored', 'mod_pdfcertificate'));
-
-        $mform->addElement('text', 'mtable', get_string('table', 'mod_pdfcertificate'));
-        $mform->setType('mtable', PARAM_TEXT);
-
-        $mform->addElement('text', 'mfield', get_string('field', 'mod_pdfcertificate'));
-        $mform->setType('mfield', PARAM_TEXT);
+        $mform->addElement('select', 'templateid', 'mod_pdfcertificate',
+                get_string('select_template', 'mod_pdfcertificate'), $templates);
+        $mform->addHelpButton('templateid', 'templateid', 'mod_pdfcertificate');
+        $mform->setType('templateid', PARAM_INT);
+        $mform->setDefault('templateid', 0);
 
         // Hidden.
         $mform->addElement('hidden', 'pdfcertificateid', $this->_customdata['pdfcertificateid']);
         $mform->setType('pdfcertificateid', PARAM_INT);
         $mform->addElement('hidden', 'courseid', $this->_customdata['courseid']);
         $mform->setType('courseid', PARAM_INT);
-        $mform->addElement('hidden', 'elementid', $this->_customdata['elementid']);
-        $mform->setType('elementid', PARAM_INT);
-
+        $mform->addElement('hidden', 'designid', $this->_customdata['designid']);
+        $mform->setType('designid', PARAM_INT);
 
         // Add standard buttons, common to all modules.
         $this->add_action_buttons();
