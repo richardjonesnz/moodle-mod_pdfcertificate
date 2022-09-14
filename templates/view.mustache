@@ -34,16 +34,7 @@
          "body": "<p>My html body</p>"
         }
 }}
-<div class="container">
-  <ul class="nav nav-tabs">
-    <li class="nav-item"><a class="nav-link active" href="{{{viewurl}}}">
-        {{# str }} viewtab, mod_pdfcertificate {{/ str }}</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{{templatesurl}}}">
-        {{# str }} templatestab, mod_pdfcertificate {{/ str }}</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{elementsurl}}">
-        {{# str }} elementstab, mod_pdfcertificate {{/ str }}</a></li>
-</ul>
-</div>
+{{> mod_pdfcertificate/navtabs}}
 <div class="card">
   <div class="card-body">
     {{{body}}}

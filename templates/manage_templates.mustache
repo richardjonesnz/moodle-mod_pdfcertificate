@@ -30,17 +30,7 @@
         }
     }
 }}
-<div class="container">
-<ul class="nav nav-tabs">
-    <li class="nav-item"><a class="nav-link" href="{{viewurl}}">
-        {{# str }} viewtab, mod_pdfcertificate {{/ str }}</a></li>
-    <li class="nav-item"><a class="nav-link active" href="{{templatesurl}}">
-        {{# str }} templatestab, mod_pdfcertificate {{/ str }}</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{elementsurl}}">
-        {{# str }} elementstab, mod_pdfcertificate {{/ str }}</a></li>
-</ul>
-
-</div>
+{{> mod_pdfcertificate/navtabs}}
 
 <h3>{{#str}}templatestab, mod_pdfcertificate{{/str}}</h3>
 <p>{{caption}}</p>

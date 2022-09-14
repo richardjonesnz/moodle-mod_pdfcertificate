@@ -29,6 +29,8 @@ use renderer_base;
 use templatable;
 use stdClass;
 use moodle_url;
+use mod_pdfcertificate\local\pdf_urls;
+
 /**
  * pdfcertificate: Create a new manage elements renderable object
  *
@@ -91,14 +93,8 @@ class manage_elements implements renderable, templatable {
             $table->tabledata[] = $data;
         }
         // Navigation tabs.
-        $url = new moodle_url('view.php', ['n' => $this->pdfcertificateid]);
-        $table->viewurl = $url->out(false);
-        $url = new moodle_url('manage_templates.php', ['courseid' => $this->courseid,
-                'pdfcertificateid' => $this->pdfcertificateid]);
-        $table->templatesurl = $url->out(false);
-        $url = new moodle_url('manage_elements.php', ['courseid' => $this->courseid,
-                'pdfcertificateid' => $this->pdfcertificateid]);
-        $table->elementsurl = $url->out(false);
+        $table->urls = pdf_urls::get_urls($this->pdfcertificateid, $this->courseid);
+
         return $table;
     }
     /**

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Gives a list of existing templates
+ * Gives a list of existing designs
  *
  * @package    mod_pdfcertificate
  * @copyright  202 Richard Jones richardnz@outlook.com
@@ -32,7 +32,7 @@ use moodle_url;
 use mod_pdfcertificate\local\pdf_urls;
 
 /**
- * pdfcertificate: Create a new manage templates renderable object
+ * pdfcertificate: Create a new manage designs renderable object
  *
  * @param object pdfcertificate - instance of pdfcertificate.
  * @param int id - course module id.
@@ -40,17 +40,17 @@ use mod_pdfcertificate\local\pdf_urls;
  * @copyright  2020 Richard Jones <richardnz@outlook.com>
  */
 
-class manage_templates implements renderable, templatable {
+class manage_designs implements renderable, templatable {
 
     protected $pdfcertificateid;
     protected $courseid;
-    protected $templates;
+    protected $designs;
 
-    public function __construct($pdfcertificateid, $courseid, $templates) {
+    public function __construct($pdfcertificateid, $courseid, $designs) {
 
         $this->pdfcertificateid = $pdfcertificateid;
         $this->courseid = $courseid;
-        $this->templates = $templates;
+        $this->designs = $designs;
     }
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -59,35 +59,35 @@ class manage_templates implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
+        global $DB;
 
         $table = new stdClass();
         $baseparams = ['courseid' => $this->courseid, 'pdfcertificateid' => $this->pdfcertificateid];
-        $table->add_template = new moodle_url('edit_template.php', $baseparams);
+        $table->add_design = new moodle_url('edit_design.php', $baseparams);
 
         // Get the table headers.
         $table->headers = self::get_headers();
 
         // Set up the table rows.
-        foreach($this->templates as $template) {
+        foreach($this->designs as $design) {
             $data = array();
 
-            $data['id'] = $template->id;
-            $data['name'] = $template->name;
-            $data['description'] = $template->description;
-            $data['height'] = $template->height;
-            $data['width'] = $template->width;
-            // Just get the filename.
-            $data['baseimageurl'] = substr($template->baseimageurl, strrpos($template->baseimageurl, '/') + 1);
+            $data['id'] = $design->id;
+            $data['name'] = $design->name;
+            $data['description'] = $design->description;
+            $template = $DB->get_record('pdftemplates', [$id = $data['templateid']], '*', IGNORE_MISSING);
+            $data['template'] = ($template == null) ? get_string('none', 'mod_pdf_certificate') :
+                    $template->name;
 
             // Set up the action links.
             $actions = array();
 
-            $url = new moodle_url('edit_template.php', $baseparams);
+            $url = new moodle_url('edit_design.php', $baseparams);
             $icon = ['icon' => 't/edit', 'component' => 'core', 'alt' => get_string('edit', 'mod_pdfcertificate')];
-            $actions['edit'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
-            $url = new moodle_url('delete_template.php', $baseparams);
+            $actions['edit'] = ['link' => $url->out(false, ['designid' => $design->id]), 'icon' => $icon];
+            $url = new moodle_url('delete_design.php', $baseparams);
             $icon = ['icon' => 't/block', 'component' => 'core', 'alt' => get_string('delete', 'mod_pdfcertificate')];
-            $actions['delete'] = ['link' => $url->out(false, ['templateid' => $template->id]), 'icon' => $icon];
+            $actions['delete'] = ['link' => $url->out(false, ['designid' => $design->id]), 'icon' => $icon];
 
             $data['actions'] = $actions;
 
@@ -99,17 +99,14 @@ class manage_templates implements renderable, templatable {
         return $table;
     }
     /**
-     * Get the headers for the templates table
+     * Get the headers for the designs table
      */
     private function get_headers() {
 
         return [get_string('id', 'mod_pdfcertificate'),
                 get_string('name', 'mod_pdfcertificate'),
                 get_string('description', 'mod_pdfcertificate'),
-                get_string('height', 'mod_pdfcertificate'),
-                get_string('width', 'mod_pdfcertificate'),
-                get_string('baseimageurl', 'mod_pdfcertificate'),
-                get_string('actions', 'mod_pdfcertificate'),
+                get_string('templatename', 'mod_pdfcertificate')
                ];
     }
 }

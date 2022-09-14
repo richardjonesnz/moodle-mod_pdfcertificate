@@ -28,7 +28,7 @@ use renderable;
 use renderer_base;
 use templatable;
 use stdClass;
-use moodle_url;
+use mod_pdfcertificate\local\pdf_urls;
 /**
  * pdfcertificate: Create a new view page renderable object
  *
@@ -62,16 +62,7 @@ class view implements renderable, templatable {
 
         // Moodle handles processing of std intro field.
         $data->body = format_module_intro('pdfcertificate', $this->pdfcertificate, $this->cmid);
-
-        // Navigation tabs.
-        $url = new moodle_url('view.php', ['n' => $this->pdfcertificate->id]);
-        $data->viewurl = $url->out(false);
-        $url = new moodle_url('manage_templates.php', ['courseid' => $this->courseid,
-                'pdfcertificateid' => $this->pdfcertificate->id]);
-        $data->templatesurl = $url->out(false);
-        $url = new moodle_url('manage_elements.php', ['courseid' => $this->courseid,
-                'pdfcertificateid' => $this->pdfcertificate->id]);
-        $data->elementsurl = $url->out(false);
+        $data->urls = pdf_urls::get_urls($this->pdfcertificate->id, $this->courseid);
 
         return $data;
     }

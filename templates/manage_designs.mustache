@@ -13,8 +13,8 @@
 }}
 
 {{!
-    @template mod_pdfcertificate/manage_elements
-    Update list of elements available to be added to a certificate template.
+    @template mod_pdfcertificate/manage_designs
+    Update list of designs available to be added to a certificate template.
 
     Context variables required for this template:
 
@@ -30,7 +30,8 @@
     }
 }}
 {{> mod_pdfcertificate/navtabs}}
-<h3>{{#str}}elementstab, mod_pdfcertificate{{/str}}</h3>
+
+<h3>{{#str}}designstab, mod_pdfcertificate{{/str}}</h3>
 <p>{{caption}}</p>
 <div class="table-responsive">
 <table class="table table-striped table-sm">
@@ -41,10 +42,10 @@
     </thead>
     <tbody>
       {{#tabledata}}
-        {{> mod_pdfcertificate/element_row}}
+        {{> mod_pdfcertificate/design_row}}
       {{/tabledata}}
     </tbody>
 </table>
-<a href="{{{add_element}}}"button type="button" class="btn btn-primary btn-sm">
-           {{#str}}addelement, mod_pdfcertificate{{/str}}</a>
+<a href="{{{add_design}}}"button type="button" class="btn btn-primary btn-sm">
+           {{#str}}adddesign, mod_pdfcertificate{{/str}}</a>
 <div>
