@@ -52,8 +52,8 @@ class design_form extends \moodleform {
             $templates[$record->id] = $record->id . ': ' . $record->name . ' (' . $record->baseimage . ')';
         }
         $templates[0] = get_string('none', 'mod_pdfcertificate');
-
-        $mform->addElement('select', 'templateid', 'mod_pdfcertificate',
+        //var_dump($templates);exit;
+        $mform->addElement('select', 'templateid',
                 get_string('select_template', 'mod_pdfcertificate'), $templates);
         $mform->addHelpButton('templateid', 'templateid', 'mod_pdfcertificate');
         $mform->setType('templateid', PARAM_INT);

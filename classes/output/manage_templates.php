@@ -76,8 +76,7 @@ class manage_templates implements renderable, templatable {
             $data['description'] = $template->description;
             $data['height'] = $template->height;
             $data['width'] = $template->width;
-            // Just get the filename.
-            $data['baseimageurl'] = substr($template->baseimageurl, strrpos($template->baseimageurl, '/') + 1);
+            $data['baseimage'] = $template->baseimage;
 
             // Set up the action links.
             $actions = array();
@@ -109,7 +108,7 @@ class manage_templates implements renderable, templatable {
                 get_string('description', 'mod_pdfcertificate'),
                 get_string('height', 'mod_pdfcertificate'),
                 get_string('width', 'mod_pdfcertificate'),
-                get_string('baseimageurl', 'mod_pdfcertificate'),
+                get_string('baseimage', 'mod_pdfcertificate'),
                 get_string('actions', 'mod_pdfcertificate'),
                ];
     }

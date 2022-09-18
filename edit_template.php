@@ -96,7 +96,8 @@ if ($data = $mform->get_data()) {
         $data->baseimageurl = moodle_url::make_pluginfile_url($context->id, 'mod_pdfcertificate', 'baseimage',
                 $templateid, '/', $file->get_filename())->out();
     }
-    // Update this record.
+    // Post process to enter filename to record.
+    $data->baseimage = substr($data->baseimageurl, strrpos($data->baseimageurl, '/') + 1);
     $DB->update_record('pdftemplates', $data);
 
     redirect(new moodle_url('manage_templates.php', ['courseid' => $courseid, 'pdfcertificateid' => $pdfcertificateid]), '', 1);

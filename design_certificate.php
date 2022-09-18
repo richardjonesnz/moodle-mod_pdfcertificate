@@ -14,18 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Create or edit a base pdf certificate design.
+ * Create or edit a pdf certificate design.
  *
  * @package mod_pdfcertificate
  * @copyright 2022 Richard F Jones <richardnz@outlook.com>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-use \mod_pdfcertificate\forms\design_form;
+use \mod_pdfcertificate\output\design_certificate;
 require_once('../../config.php');
 
 $courseid = required_param('courseid', PARAM_INT);
 $pdfcertificateid = required_param('pdfcertificateid', PARAM_INT);
-$designid = optional_param('designid', 0, PARAM_INT);
+$designid = required_param('designid', PARAM_INT);
 
 $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 $cm = get_coursemodule_from_instance('pdfcertificate', $pdfcertificateid, $courseid, false, MUST_EXIST);
@@ -43,44 +43,20 @@ $context = context_course::instance($courseid);
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->activityheader->set_description('');
 
-// Check the users permissions to see the edit design page.
-require_capability('mod/pdfcertificate:manage', $context);
+// Check the users permissions to see the design page.
+require_capability('mod/pdfcertificate:define', $context);
 
-// Create new or edit existing design?
-if ($designid == 0) {
-    $data = new stdClass();
-    $data->id = null;
-} else {
-    $data = $DB->get_record('pdfdesigns', ['id' => $designid], '*', MUST_EXIST);
-}
+// Get the design record and check for an element list.
+$design = $DB->get_record('pdfdesigns', ['id' => $designid], '*', MUST_EXIST);
 
-$mform = new design_form(null, ['courseid' => $courseid, 'pdfcertificateid' => $pdfcertificateid,'designid' => $designid]);
-$mform->set_data($data);
+    $elementlist = ($design->pdfelementlistid == 0) ? null :
+            $DB->get_records('pdfelementlists', ['pdfdesignid' => $designid], '*');
 
-if ($mform->is_cancelled()) {
-    redirect(new moodle_url('manage_designs.php', ['courseid' => $courseid, 'pdfcertificateid' => $pdfcertificateid]),
-            get_string('cancelled'), 2);
-}
-
-if ($data = $mform->get_data()) {
-
-    $timenow = time();
-    $data->timemodified = $timenow;
-
-    if ($designid == 0) {
-        $data->timecreated = $timenow;
-        $data->pdfelementlistid = 0;
-        $data->id = $DB->insert_record('pdfdesigns', $data);
-
-    } else {
-        $data->id = $designid;
-        $DB->update_record('pdfdesigns', $data);
-    }
-
-    redirect(new moodle_url('manage_designs.php', ['courseid' => $courseid, 'pdfcertificateid' => $pdfcertificateid]), '', 1);
-}
-
+// Get the template this design is based on and all available elements.
+$template = $DB->get_record('pdftemplates', ['id' => $design->templateid], '*');
+$elements = $DB->get_records('pdfelements', null, null, '*');
 // Output the page.
 echo $OUTPUT->header();
-echo $mform->display();
+echo $OUTPUT->render(new design_certificate($pdfcertificateid, $courseid, $template, $elements,
+        $design, $elementlist));
 echo $OUTPUT->footer();

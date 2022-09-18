@@ -75,9 +75,8 @@ class manage_designs implements renderable, templatable {
             $data['id'] = $design->id;
             $data['name'] = $design->name;
             $data['description'] = $design->description;
-            $template = $DB->get_record('pdftemplates', [$id = $data['templateid']], '*', IGNORE_MISSING);
-            $data['template'] = ($template == null) ? get_string('none', 'mod_pdf_certificate') :
-                    $template->name;
+            $template = $DB->get_record('pdftemplates', ['id' => $design->templateid], '*', IGNORE_MISSING);
+            $data['template'] = ($template == null) ? get_string('none', 'mod_pdf_certificate') : $template->name;
 
             // Set up the action links.
             $actions = array();
@@ -88,6 +87,10 @@ class manage_designs implements renderable, templatable {
             $url = new moodle_url('delete_design.php', $baseparams);
             $icon = ['icon' => 't/block', 'component' => 'core', 'alt' => get_string('delete', 'mod_pdfcertificate')];
             $actions['delete'] = ['link' => $url->out(false, ['itemid' => $design->id, 'return' => 'design']),
+                    'icon' => $icon];
+            $url = new moodle_url('design_certificate.php', $baseparams);
+            $icon = ['icon' => 't/index_drawer', 'component' => 'core', 'alt' => get_string('design', 'mod_pdfcertificate')];
+            $actions['design'] = ['link' => $url->out(false, ['designid' => $design->id, 'return' => 'design']),
                     'icon' => $icon];
 
             $data['actions'] = $actions;
@@ -107,7 +110,8 @@ class manage_designs implements renderable, templatable {
         return [get_string('id', 'mod_pdfcertificate'),
                 get_string('name', 'mod_pdfcertificate'),
                 get_string('description', 'mod_pdfcertificate'),
-                get_string('templatename', 'mod_pdfcertificate')
+                get_string('templatename', 'mod_pdfcertificate'),
+                get_string('actions', 'mod_pdfcertificate')
                ];
     }
 }
