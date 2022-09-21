@@ -57,6 +57,6 @@ $template = $DB->get_record('pdftemplates', ['id' => $design->templateid], '*');
 $elements = $DB->get_records('pdfelements', null, null, '*');
 // Output the page.
 echo $OUTPUT->header();
-echo $OUTPUT->render(new design_certificate($pdfcertificateid, $courseid, $template, $elements,
+echo $OUTPUT->render(new design_certificate($pdfcertificate, $courseid, $template, $elements,
         $design, $elementlist));
 echo $OUTPUT->footer();

@@ -35,7 +35,7 @@ use moodle_url;
 
 class design_certificate implements renderable, templatable {
 
-    protected $pdfcertificateid;
+    protected $pdfcertificate;
     protected $courseid;
     protected $template;
     protected $elements;  // Available elements that can be added to a design.
@@ -43,10 +43,10 @@ class design_certificate implements renderable, templatable {
     protected $elementlist; // Elements already in this dsign.
 
 
-    public function __construct($pdfcertificateid, $courseid, $template, $elements, $design,
+    public function __construct($pdfcertificate, $courseid, $template, $elements, $design,
             $elementlist) {
 
-        $this->pdfcertificateid = $pdfcertificateid;
+        $this->pdfcertificate = $pdfcertificate;
         $this->courseid = $courseid;
         $this->template = $template;
         $this->elements = $elements;
@@ -65,8 +65,9 @@ class design_certificate implements renderable, templatable {
 
         $data->designname = $this->design->name;
         $data->description = $this->design->description;
-        $data->height = $this->template->height;
-        $data->width = $this->template->width;
+        // Editing area dimensions in px.
+        $data->height = $this->pdfcertificate->height;
+        $data->width = $this->pdfcertificate->width;
         $data->baseimageurl = $this->template->baseimageurl;
 
         // Set up the available element list.
@@ -79,6 +80,5 @@ class design_certificate implements renderable, templatable {
         }
 
         return $data;
-
     }
 }

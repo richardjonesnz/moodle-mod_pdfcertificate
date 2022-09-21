@@ -34,14 +34,24 @@
   <h2 class="card-title">{{designname}}</h2>
   <p>{{description}}</p>
   <div class="mod_pdfcertificate_define">
-    <div class="mod_pdf_dertificate_element_list">
+    <div class="mod_pdf_certificate_element_list">
     <h4>{{#str}} elementslist, mod_pdfcertificate {{/ str}}</h4>
     <ul class="list-group">
       {{# elements}}
-        <a href="{{{url}}}" class="list-group-item">{{name}}</a>
+        <li class="list-group-item" draggable="true"><a href="{{{url}}}" >{{name}}</a></li>
       {{/ elements}}
     </ul>
     </div>
-    <img src="{{baseimageurl}}" width="80%">
+    <canvas id="mod_pdfcertificate_canvas" width="{{width}}" height="{{height}}"></canvas>
+  </div>
+  <div class="mod_pdfcertificate_toolbox">
+        <button data-action="mod_pdfcertificate/clear_button">{{# str}}clear, mod_pdfcertificate{{/ str}}</button>
   </div>
 </div>
+{{#js}}
+    require(['mod_pdfcertificate/design'],
+        function(module) {
+            module.init('{{{baseimageurl}}}');
+        }
+    );
+{{/js}}

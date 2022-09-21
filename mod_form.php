@@ -60,6 +60,17 @@ class mod_pdfcertificate_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'instancename', 'pdfcertificate');
 
+        // User can select the screen dimensions for the certificate design screen (in pixels).
+        $mform->addElement('text', 'screenheight', get_string('screenheight', 'pdfcertificate'), array('size' => '64'));
+        $mform->setType('screenheight', PARAM_INT);
+        $mform->setDefault('screenheight', 500);
+        $mform->addHelpButton('screenheight', 'screenheight', 'pdfcertificate');
+
+        $mform->addElement('text', 'screenwidth', get_string('screenwidth', 'pdfcertificate'), array('size' => '64'));
+        $mform->setType('screenwidth', PARAM_INT);
+        $mform->setDefault('screenwidth', 500);
+        $mform->addHelpButton('screenwidth', 'screenwidth', 'pdfcertificate');
+
         // Adding the standard "intro" and "introformat" fields.
         $this->standard_intro_elements();
 
